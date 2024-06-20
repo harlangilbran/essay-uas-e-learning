@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Evaluasi Essay</title>
+    <style>
+      body {
+        background-color: white;
+        color: black;
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      textarea {
+        width: 100%;
+        height: 200px;
+        margin-bottom: 20px;
+        color: rgb(0, 0, 0);
+        font-size: 16px;
+        padding: 10px;
+        border: 1px solid #151414;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      input[type="text"] {
+        width: 100%;
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #030303;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      button {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 5px;
+        background-color: #0056b3;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      button:hover {
+        background-color: #004a9c;
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+      #evaluationResult {
+        display: none;
+        margin-top: 20px;
+        padding: 20px;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      #evaluationResult h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+      #score {
+        font-size: 18px;
+      }
+      #sendEmailButton {
+        background-color: #0056b3;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      #sendEmailButton:hover {
+        background-color: #004a9c;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Soal Essay</h1>
+    <form id="essayForm">
+      <label for="essay1"
+        >Soal 1: Jelaskan dampak sosial dari perkembangan teknologi informatika
+        yang diwakili dalam Peta Konsep Dampak Sosial Informatika.</label
+      ><br />
+      <textarea id="essay1" name="essay1" required></textarea><br />
+
+      <label for="essay2"
+        >Soal 2: Apa yang membuat ENIAC menjadi tonggak penting dalam sejarah
+        komputasi?</label
+      ><br />
+      <textarea id="essay2" name="essay2" required></textarea><br />
+
+      <label for="essay3"
+        >Bagaimana peran Ada Lovelace dalam sejarah komputasi?</label
+      ><br />
+      <textarea id="essay3" name="essay3" required></textarea><br />
+
+      <label for="essay4"
+        >Apa saja bentuk komputer yang telah meresap ke dalam kehidupan
+        sehari-hari menurut Gambar 8.4?</label
+      ><br />
+      <textarea id="essay4" name="essay4" required></textarea><br />
+
+      <label for="essay5"
+        >Bagaimana industri kreatif di Indonesia mendapat manfaat dari teknologi
+        informasi dan komunikasi menurut Gambar 8.5?</label
+      ><br />
+      <textarea id="essay5" name="essay5" required></textarea><br />
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <div id="evaluationResult">
+      <h2>Hasil Evaluasi</h2>
+      <p id="score"></p>
+      <button id="sendEmailButton">Kirim Hasil</button>
+    </div>
+
+    <script>
+      document
+        .getElementById("essayForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          // Ambil data dari form
+          var essay1Text = document.getElementById("essay1").value;
+          var essay2Text = document.getElementById("essay2").value;
+          var essay3Text = document.getElementById("essay3").value;
+          var essay4Text = document.getElementById("essay4").value;
+          var essay5Text = document.getElementById("essay5").value;
+
+          // Evaluasi setiap jawaban
+          var score1 = evaluateEssay(essay1Text, [
+            "dampak sosial",
+            "teknologi informatika",
+            "komunikasi",
+            "pekerjaan",
+            "e-learning",
+            "interaksi sosial",
+            "akses informasi",
+            "efisiensi",
+            "privasi data",
+            "ketergantungan teknologi",
+          ]);
+          var score2 = evaluateEssay(essay2Text, [
+            "ENIAC",
+            "komputer elektronik pertama",
+            "1940-an",
+            "elektronik digital",
+            "perhitungan",
+            "mesin hitung",
+            "kemampuan diprogram",
+            "fleksibel",
+            "canggih",
+            "komputasi",
+          ]);
+          var score3 = evaluateEssay(essay3Text, [
+            "Ada Lovelace",
+            "matematikawan Inggris",
+            "pemrogram komputer",
+            "Charles Babbage",
+            "mesin analitik",
+            "algoritma",
+            "bilangan Bernoulli",
+            "alat hitung",
+            "program kompleks",
+            "musik dan seni",
+          ]);
+          var score4 = evaluateEssay(essay4Text, [
+            "komputer",
+            "kehidupan sehari-hari",
+            "smartwatch",
+            "Surface Table",
+            "realitas virtual",
+            "hiburan",
+            "pendidikan",
+            "pelatihan",
+            "kolaboratif",
+            "produktivitas",
+          ]);
+          var score5 = evaluateEssay(essay5Text, [
+            "industri kreatif",
+            "Indonesia",
+            "teknologi informasi",
+            "komunikasi",
+            "desain grafis",
+            "film",
+            "musik",
+            "game",
+            "platform online",
+            "pertumbuhan ekonomi",
+          ]);
+
+          // Hitung total skor
+          var totalScore = (score1 + score2 + score3 + score4 + score5) / 5;
+
+          // Tampilkan hasil evaluasi
+          document.getElementById("score").innerText =
+            "Skor Rata-rata: " + totalScore;
+          document.getElementById("evaluationResult").style.display = "block";
+
+          // Alert nilai rata-rata
+          alert("Nilai rata-rata evaluasi Anda: " + totalScore);
+        });
+
+      document
+        .getElementById("sendEmailButton")
+        .addEventListener("click", function () {
+          var totalScore = document
+            .getElementById("score")
+            .innerText.split(": ")[1];
+
+          var emailBody = "Skor Rata-rata: " + totalScore;
+          var mailtoLink =
+            "mailto:harlangilbran10@gmail.com?subject=Hasil Evaluasi&body=" +
+            emailBody;
+
+          window.location.href = mailtoLink;
+        });
+
+      function evaluateEssay(essay, keywords) {
+        var matches = 0;
+
+        keywords.forEach((keyword) => {
+          if (essay.toLowerCase().includes(keyword.toLowerCase())) {
+            matches++;
+          }
+        });
+
+        if (matches >= 3) {
+          return 20;
+        } else if (matches == 2) {
+          return 10;
+        } else {
+          return 0;
+        }
+      }
+    </script>
+  </body>
+</html>
